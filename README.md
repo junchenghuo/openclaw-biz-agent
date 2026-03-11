@@ -1,65 +1,227 @@
 # OpenClaw 企业级数字员工项目（openclaw-biz-agent）
 
-本仓库是基于 OpenClaw 的企业级二次开发工作区，面向企业真实场景构建可落地、可运营、可持续迭代的 AI Agent 与数字员工体系。
-
-聚焦方向：
-
-- 企业级 Agent 研发与业务自动化编排
-- MCP（Model Context Protocol）工具接入与统一治理
-- Skills（技能）沉淀与复用
-- 多角色协作交付（产品、架构、研发、测试、运维）
+本仓库用于构建一个**基于 OpenClaw 的企业级数字员工团队**：在 Leader 确认项目目标后，由多角色数字员工进行 7x24 小时持续协作，完成从需求到上线运维的闭环交付。
 
 上游项目：`https://github.com/openclaw/openclaw`
 
----
+扩展文档：
 
-## 项目定位
-
-`openclaw-biz-agent` 的目标是把 AI 从“聊天能力”升级为“企业可执行能力”，形成覆盖客服、运营、供应链、风控、内控等场景的企业级数字员工（Enterprise AI Workforce）。
-
-核心定位：
-
-- 基于 OpenClaw 构建企业级 Agent 平台能力
-- 通过 MCP 打通工具与系统接口，实现跨系统执行
-- 通过 Skills 抽象业务能力，实现标准化、可复用、可治理
-- 通过 Multi-Agent 协作提升复杂任务交付质量与稳定性
+- `ORG_ARCH.md`（组织架构与 RACI）
+- `RUNBOOK_7x24.md`（7x24 运行手册）
 
 ---
 
-## 二次开发重点
+## 角色设定来源（可直接阅读）
 
-### 1) 企业级 Agent 架构
+本 README 的组织设定来自以下角色协议文件：
 
-- 面向业务流程构建 Agentic Workflow，打通“意图理解 -> 任务规划 -> 工具执行 -> 结果回传”闭环。
-- 支持 Planner / Executor / Reviewer 等角色化协同，实现复杂任务分治执行。
-
-### 2) MCP 工具生态
-
-- 通过 MCP Server 统一封装内部系统能力（如订单、工单、审批、知识库、报表）。
-- 建立工具访问边界与权限治理，保证企业级安全可控。
-
-### 3) Skills 资产化
-
-- 将高频业务流程沉淀为 Skills，支持版本化管理、灰度发布与持续优化。
-- 通过技能目录化管理，提升团队复用效率与交付一致性。
-
-### 4) AI 工程化治理
-
-- 建立 PromptOps / EvalOps / Guardrails / Observability 体系。
-- 从 PoC 走向 Production，确保效果、成本、延迟、稳定性可量化可优化。
+- `leader/AGENTS.md`
+- `product/AGENTS.md`
+- `arch/AGENTS.md`
+- `ui/AGENTS.md`
+- `fe/AGENTS.md`
+- `be/AGENTS.md`
+- `ai/AGENTS.md`
+- `qa/AGENTS.md`
+- `ops/AGENTS.md`
 
 ---
 
-## 目录概览
+## 企业级数字员工编制（名字 + 职能）
 
-- `projects/`：项目与交付物
-- `product/`：产品需求与业务文档
-- `arch/`：系统与方案架构设计
-- `fe/` / `be/`：前后端实现与服务能力
-- `qa/`：测试用例、质量报告与验收记录
-- `ops/`：部署、发布、监控与运维资产
-- `ui/`：设计规范、组件规范与视觉资源
-- `tasks/`：任务拆解与执行追踪
+| 名字 | 角色 | 核心职能 | 主要交付目录 | Mattermost 账号 |
+|---|---|---|---|---|
+| 郑吒 | Team Leader | 立项确认、派单调度、风险仲裁、节奏推进 | `projects/<project>/plan/` | `@bot-leader` |
+| 楚轩 | 产品经理 | PRD、业务目标、验收标准、价值评估 | `projects/<project>/product/` | `@bot-product` |
+| 萧宏律 | 架构师 | 架构蓝图、接口契约、性能与安全基线 | `projects/<project>/architecture/` | `@bot-arch` |
+| 铭烟薇 | UI 设计 | 视觉规范、交互方案、设计系统 | `projects/<project>/product/`、`deliverables/` | `@bot-ui` |
+| 罗甘道 | 前端开发 | 页面与交互实现、前端工程化、可观测埋点 | `projects/<project>/tech/frontend/` | `@bot-fe` |
+| 罗应龙 | 后端开发 | 服务/API/数据实现、性能稳定性保障 | `projects/<project>/tech/backend/` | `@bot-be` |
+| 赵樱空 | AI 专家 | 模型策略、RAG、Prompt、评测与安全治理 | `projects/<project>/tech/ai/` | `@bot-ai` |
+| 詹岚 | QA 测试 | 测试策略、质量门禁、发布放行建议 | `projects/<project>/qa/` | `@bot-test` |
+| 张杰 | 运维/DBA | 部署发布、监控告警、数据库变更与容灾 | `projects/<project>/ops/` | `@bot-ops` |
+
+---
+
+## 协同关系（组织流程）
+
+```mermaid
+flowchart LR
+    A[Leader确认立项与目标] --> B[楚轩-产品PRD/验收标准]
+    B --> C[Gate-1 评审]
+    C --> D[萧宏律-架构方案/API契约]
+    D --> E[Gate-2 评审]
+    E --> F1[铭烟薇-UI规范]
+    E --> F2[罗甘道-前端开发]
+    E --> F3[罗应龙-后端开发]
+    E --> F4[赵樱空-AI能力集成]
+    F1 --> G[詹岚-QA测试与门禁]
+    F2 --> G
+    F3 --> G
+    F4 --> G
+    G --> H[张杰-运维发布与DBA变更]
+    H --> I[线上监控与复盘]
+    I --> A
+```
+
+协同规则要点：
+
+- 跨角色行动统一由 Leader 调度，避免越级协作失控。
+- 所有角色必须在频道回执 `已接单 / done / blocked`。
+- 未过 Gate 不进入下一阶段，保证质量与节奏可控。
+
+---
+
+## 任务体系（Task System）
+
+任务采用“目标到执行”五层结构：
+
+- `L0` 项目目标：业务目标、上线窗口、核心 KPI。
+- `L1` 里程碑：需求冻结、方案冻结、开发完成、测试放行、上线完成。
+- `L2` 史诗任务：按业务域拆分（登录、订单、支付、客服等）。
+- `L3` 角色任务：按 owner 分配到 `product/arch/ui/fe/be/ai/qa/ops`。
+- `L4` 执行项：可落地、可验证、可追溯的最小工作单元。
+
+状态流：`todo -> doing -> review -> done`（阻塞统一标注 `blocked` 并回传 Leader）。
+
+任务源：
+
+- 项目化任务：`projects/<project>/plan/TASKS.json`
+- 日常任务：`tasks/TASKS.csv`
+
+---
+
+## 通讯体系（Communication System）
+
+统一通信平台：`Mattermost (http://localhost:8065)`
+
+通信原则：
+
+- Leader 是唯一跨角色调度入口。
+- 派单、回执、阻塞、催办都在团队频道完成。
+- 附件发送必须走工具并带真实文件，不允许“口头已发送”。
+
+标准消息模板：
+
+- 接单：`@bot-leader 【角色】已接单 | 任务ID | 预计完成时间`
+- 完成：`@bot-leader 【角色】done | 产物路径 | 验证结果`
+- 阻塞：`@bot-leader 【角色】blocked | 阻塞原因 | 需协调项`
+
+---
+
+## 决策体系（Decision System）
+
+按影响范围分层决策：
+
+- `D0` 角色内技术决策：角色自主决策并留痕。
+- `D1` 跨角色协作决策：Leader 主持，相关角色会签。
+- `D2` 项目级范围/排期/成本决策：Leader + 产品 + 架构。
+- `D3` 生产风险/合规/数据安全决策：Leader 触发升级流程。
+
+决策记录统一写入：`projects/<project>/decisions/DECISIONS.md`
+
+```mermaid
+flowchart TD
+    A[问题出现] --> B{影响范围}
+    B -->|单角色| C[D0 角色内决策]
+    B -->|跨角色| D[D1 Leader协调]
+    B -->|范围/排期/成本| E[D2 项目级决策]
+    B -->|生产风险/合规| F[D3 升级决策]
+    C --> G[记录到 DECISIONS]
+    D --> G
+    E --> G
+    F --> G
+```
+
+---
+
+## 会话体系（Session System）
+
+为保证 7x24 连续工作，会话按三层组织：
+
+- 项目会话：项目全局上下文（目标、范围、里程碑、风险）。
+- 角色会话：角色专属上下文（职责、依赖、当前执行项）。
+- 议题会话：特定问题（缺陷、接口变更、线上告警）短周期处理。
+
+上下文策略：
+
+- 短期上下文：当前任务输入输出与最新决策。
+- 长期上下文：项目知识、标准规范、历史复盘。
+- 会话交接：每次 `done/blocked` 必带“下一步建议”，支持无缝接力。
+
+---
+
+## 技能体系（Skills + MCP）
+
+数字员工能力由两层组成：
+
+- `MCP`：连接企业系统能力（工单、订单、知识库、报表、审批等）。
+- `Skills`：标准化业务技能包（可复用、可版本化、可灰度）。
+
+技能生命周期：
+
+1. 需求提出（业务场景定义）
+2. 技能设计（输入/输出/边界/回滚）
+3. 评测验收（准确率、成本、时延、风险）
+4. 发布上架（版本号、适用范围）
+5. 运行观测（命中率、失败率、人工兜底率）
+6. 迭代下线（新版本替换或归档）
+
+---
+
+## 7x24 连续工作机制
+
+Leader 与数字员工协作进入“持续执行模式”后，系统按事件驱动自动循环：
+
+```mermaid
+flowchart LR
+    A[Leader确认项目目标] --> B[任务自动拆解与派单]
+    B --> C[角色并行执行]
+    C --> D{是否阻塞}
+    D -->|是| E[回传blocked并请求协调]
+    E --> F[Leader决策与重派单]
+    F --> C
+    D -->|否| G[提交产物与验收结果]
+    G --> H[QA门禁与OPS发布]
+    H --> I[监控告警与复盘]
+    I --> B
+```
+
+运行保障机制：
+
+- 任务超时自动告警与催办。
+- 阻塞自动升级到 Leader。
+- 关键节点（评审、放行、发布）强制留痕。
+- 通过“回执规范 + 决策留痕 + 会话交接”实现不中断协作。
+
+---
+
+## 工作区目录
+
+- `projects/`：项目主目录（计划、产物、决策、交付）
+- `tasks/`：日常任务池（非项目化）
+- `leader/`：调度与编排中心
+- `product/` `arch/` `ui/` `fe/` `be/` `ai/` `qa/` `ops/`：各角色执行空间
+
+## 工程目录产出参考（效果示例）
+
+为便于快速理解“每个目录会产出什么”，可直接参考以下现有样例：
+
+- 项目总计划：`projects/login-page-delivery/plan/PROJECT.md`
+- 产品 PRD：`projects/login-page-delivery/product/PRD_T2_登录页.md`
+- 架构方案：`projects/login-page-delivery/architecture/ARCH_Auth_CORS_联调方案_20260307.md`
+- 后端接口契约：`projects/login-page-delivery/tech/backend/AUTH_API_CONTRACT.md`
+- OpenAPI 示例：`projects/yajiang-hr-vue3-upgrade/tech/backend/OPENAPI.yaml`
+- UI 规范：`projects/login-page-delivery/ui/UI_Login_v1_Spec.md`
+- QA 用例：`projects/login-page-delivery/qa/QA_Login_TestCases_20260307.md`
+- 运维发布方案：`projects/login-page-delivery/ops/OPS_Local_Deploy_Plan_20260307.md`
+- 交付清单：`projects/login-page-delivery/deliverables/ARTIFACTS.md`
+
+查看这些文件后，可以直观看到：
+
+- 从需求到上线的链路产物是完整的。
+- 每个角色都有对应交付目录与标准文档。
+- 产物命名与归档方式可直接复用到新项目。
 
 ---
 
@@ -89,10 +251,3 @@
 - 构建 MCP（Model Context Protocol）工具生态，沉淀 MCP Server 与标准化能力接口。
 - 建设 Skills 资产体系，将高频业务能力封装为可复用 Skill，支持版本化与持续迭代。
 - 推动 Multi-Agent 协作与数字员工体系建设，支撑企业 AI 应用规模化落地。
-
----
-
-## 说明
-
-- 本仓库用于 `openclaw-biz-agent` 的工程化协作与版本管理。
-- 建议通过 Pull Request 流程进行评审与合并，确保质量与可追溯性。
