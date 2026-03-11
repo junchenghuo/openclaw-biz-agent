@@ -1,0 +1,53 @@
+# Skills Request Log
+# 记录格式：
+# [时间] 申请人 -> 技能 <skill_name> ｜ 场景：<context> ｜ 状态：pending/approved/installed ｜ 处理：Leader ｜ 备注：...
+[2026-03-07 19:11:41] Leader -> 技能 leader-task-orchestrator ｜ 场景：leader 角色能力补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：本地离线技能，无付费API/KEY
+[2026-03-07 19:11:41] Leader -> 技能 leader-risk-register ｜ 场景：leader 角色能力补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：本地离线技能，无付费API/KEY
+[2026-03-07 19:11:41] Leader -> 技能 product-prd-doc ｜ 场景：product 角色能力补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：本地离线技能，无付费API/KEY
+[2026-03-07 19:11:41] Leader -> 技能 product-prototype-blueprint ｜ 场景：product 角色能力补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：本地离线技能，无付费API/KEY
+[2026-03-07 19:11:41] Leader -> 技能 arch-system-diagram-mermaid ｜ 场景：arch 角色能力补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：本地离线技能，无付费API/KEY
+[2026-03-07 19:11:41] Leader -> 技能 arch-api-development-spec ｜ 场景：arch 角色能力补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：本地离线技能，无付费API/KEY
+[2026-03-07 19:11:41] Leader -> 技能 ui-hd-visual-spec ｜ 场景：ui 角色能力补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：本地离线技能，无付费API/KEY
+[2026-03-07 19:11:41] Leader -> 技能 ui-design-token-system ｜ 场景：ui 角色能力补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：本地离线技能，无付费API/KEY
+[2026-03-07 19:11:41] Leader -> 技能 fe-page-implementation-kit ｜ 场景：fe 角色能力补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：本地离线技能，无付费API/KEY
+[2026-03-07 19:11:41] Leader -> 技能 fe-component-contract-doc ｜ 场景：fe 角色能力补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：本地离线技能，无付费API/KEY
+[2026-03-07 19:11:41] Leader -> 技能 be-openapi-contract-kit ｜ 场景：be 角色能力补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：本地离线技能，无付费API/KEY
+[2026-03-07 19:11:41] Leader -> 技能 be-service-design-note ｜ 场景：be 角色能力补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：本地离线技能，无付费API/KEY
+[2026-03-07 19:11:41] Leader -> 技能 qa-testcase-matrix ｜ 场景：qa 角色能力补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：本地离线技能，无付费API/KEY
+[2026-03-07 19:11:41] Leader -> 技能 qa-regression-checklist ｜ 场景：qa 角色能力补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：本地离线技能，无付费API/KEY
+[2026-03-07 19:11:41] Leader -> 技能 ops-deploy-runbook ｜ 场景：ops 角色能力补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：本地离线技能，无付费API/KEY
+[2026-03-07 19:11:41] Leader -> 技能 ops-observability-slo ｜ 场景：ops 角色能力补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：本地离线技能，无付费API/KEY
+[2026-03-07 19:11:41] Leader -> 技能 ai-prompt-eval-kit ｜ 场景：ai 角色能力补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：本地离线技能，无付费API/KEY
+[2026-03-07 19:11:41] Leader -> 技能 ai-model-solution-note ｜ 场景：ai 角色能力补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：本地离线技能，无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 find-skills ｜ 场景：leader 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：downloaded, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 skill-creator ｜ 场景：leader 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：downloaded, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 powerpoint-pptx ｜ 场景：product 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：downloaded, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 image-content-search ｜ 场景：qa 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：downloaded, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 image-ocr ｜ 场景：ui 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：downloaded, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 feishu-im-file-send ｜ 场景：leader 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：downloaded, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 feishu-im-file-send ｜ 场景：product 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：downloaded, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 feishu-im-file-send ｜ 场景：arch 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：downloaded, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 feishu-im-file-send ｜ 场景：fe 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：downloaded, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 feishu-im-file-send ｜ 场景：be 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：downloaded, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 feishu-im-file-send ｜ 场景：qa 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：downloaded, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 feishu-im-file-send ｜ 场景：ops 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：downloaded, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 feishu-im-file-send ｜ 场景：ui 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：downloaded, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 feishu-im-file-send ｜ 场景：ai 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：downloaded, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 leader-skills-audit ｜ 场景：leader 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：custom, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 product-roi-prioritization ｜ 场景：product 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：custom, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 arch-threat-capacity-baseline ｜ 场景：arch 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：custom, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 fe-a11y-performance-audit ｜ 场景：fe 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：custom, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 be-schema-migration-guard ｜ 场景：be 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：custom, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 qa-release-gate-triage ｜ 场景：qa 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：custom, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 ops-db-backup-restore-drill ｜ 场景：ops 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：custom, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 ui-design-handoff-annotation ｜ 场景：ui 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：custom, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 ai-safety-eval-guard ｜ 场景：ai 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：custom, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 feishu-basic-collab ｜ 场景：leader 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：custom, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 feishu-basic-collab ｜ 场景：product 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：custom, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 feishu-basic-collab ｜ 场景：arch 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：custom, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 feishu-basic-collab ｜ 场景：fe 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：custom, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 feishu-basic-collab ｜ 场景：be 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：custom, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 feishu-basic-collab ｜ 场景：qa 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：custom, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 feishu-basic-collab ｜ 场景：ops 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：custom, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 feishu-basic-collab ｜ 场景：ui 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：custom, 本地离线, 无付费API/KEY
+[2026-03-07 19:23:39] Leader -> 技能 feishu-basic-collab ｜ 场景：ai 岗位职责缺口补齐 ｜ 状态：installed ｜ 处理：Leader ｜ 备注：custom, 本地离线, 无付费API/KEY

@@ -1,0 +1,60 @@
+{
+  "project": {
+    "name": "tech-login-captcha-page",
+    "title": "科技风登录页（含图形验证码）",
+    "initiator": "霍钧城",
+    "createdAt": "2026-03-07",
+    "owner": "pm"
+  },
+  "stageControl": {
+    "updatedAt": "2026-03-08T14:28:06+08:00",
+    "gateOrder": [
+      "gate0_requirements",
+      "gate1_product_review",
+      "gate2_arch_design_review",
+      "gate3_dev",
+      "gate4_test",
+      "gate5_deploy"
+    ],
+    "gates": {
+      "gate0_requirements": {
+        "total": 0,
+        "done": 0,
+        "passed": true,
+        "waiting": false
+      },
+      "gate1_product_review": {
+        "total": 1,
+        "done": 1,
+        "passed": true,
+        "waiting": false
+      },
+      "gate2_arch_design_review": {
+        "total": 2,
+        "done": 2,
+        "passed": true,
+        "waiting": false
+      },
+      "gate3_dev": {
+        "total": 1,
+        "done": 1,
+        "passed": true,
+        "waiting": false
+      },
+      "gate4_test": {
+        "total": 0,
+        "done": 0,
+        "passed": true,
+        "waiting": false
+      },
+      "gate5_deploy": {
+        "total": 0,
+        "done": 0,
+        "passed": true,
+        "waiting": false
+      }
+    },
+    "nextDispatchGate": "completed",
+    "blockedBy": []
+  }
+}

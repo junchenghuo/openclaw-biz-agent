@@ -1,0 +1,28 @@
+# OS
+.DS_Store
+
+# Node
+**/node_modules/
+**/dist/
+**/build/
+**/.cache/
+
+# Logs
+*.log
+logs/
+
+# Env
+.env
+.env.*
+
+# IDE
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+
+# Misc
+*.tmp
+*.swp

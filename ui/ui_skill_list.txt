@@ -1,0 +1,22 @@
+# UI 角色可用技能清单
+1. feishu-doc: 飞书文档读写操作
+2. feishu-drive: 飞书云存储文件管理
+3. feishu-perm: 飞书文档/文件权限管理
+4. feishu-wiki: 飞书知识库导航
+5. coding-agent: 编码任务代理
+6. gh-issues: GitHub Issue 处理与PR提交
+7. github: GitHub CLI 操作
+8. healthcheck: 主机安全加固与OpenClaw状态检查
+9. imsg: iMessage/SMS 消息操作
+10. nano-pdf: PDF 自然语言编辑
+11. openai-image-gen: OpenAI 图片批量生成
+12. openai-whisper-api: OpenAI Whisper 音频转写
+13. session-logs: 会话日志搜索分析
+14. skill-creator: AgentSkill 创建/更新
+15. weather: 天气查询
+16. image-ocr: 图片文字提取
+17. PowerPoint PPTX: PPT 自动化创建编辑
+18. feishu-basic-collab: 飞书群协同基础操作
+19. ui-design-handoff-annotation: UI设计交付标注
+20. ui-design-token-system: UI设计Token体系构建
+21. ui-hd-visual-spec: UI高清视觉稿生成规范

@@ -1,0 +1,25 @@
+# 萧宏律-架构师可用技能清单
+## 通用技能
+1. feishu-doc: Feishu文档读写操作
+2. feishu-drive: Feishu云存储文件管理
+3. feishu-perm: Feishu文档和文件权限管理
+4. feishu-wiki: Feishu知识库导航
+5. coding-agent: 编码任务代理（Codex/Claude Code/Pi）
+6. gh-issues: GitHub issue处理与PR自动提交
+7. github: GitHub CLI操作（issue/PR/CI）
+8. healthcheck: 主机安全加固与OpenClaw部署风险检查
+9. imsg: iMessage/SMS消息发送与历史查询
+10. nano-pdf: PDF自然语言编辑
+11. openai-image-gen: OpenAI图片批量生成
+12. openai-whisper-api: OpenAI音频转写
+13. session-logs: 会话日志搜索分析
+14. skill-creator: AgentSkill创建与更新
+15. weather: 天气查询
+16. image-ocr: 图片OCR文字提取
+17. PowerPoint PPTX: PPT自动化生成与编辑
+
+## 架构专属技能
+18. arch-api-development-spec: 标准接口开发说明书输出（含契约/错误码/鉴权）
+19. arch-system-diagram-mermaid: 系统架构图/部署图/时序图生成（Mermaid）
+20. arch-threat-capacity-baseline: 威胁建模与容量估算输出
+21. feishu-basic-collab: 飞书群协同规范（ACK/状态同步/代发/回执闭环）

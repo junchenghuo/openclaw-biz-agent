@@ -1,0 +1,255 @@
+openapi: 3.0.3
+info:
+  title: Login API (MVP)
+  version: 0.1.0
+  description: |
+    TASK-002 登录接口草案（账号密码 + 会话）。
+    安全基线：生产强制HTTPS、限流锁定、统一外显错误、内部错误码分层、日志脱敏。
+servers:
+  - url: https://api.example.com
+    description: Production (HTTPS only)
+  - url: https://staging-api.example.com
+    description: Staging
+
+tags:
+  - name: Auth
+
+paths:
+  /v1/auth/login:
+    post:
+      tags: [Auth]
+      summary: 账号密码登录
+      description: |
+        成功后通过 Set-Cookie 下发会话。
+        失败时外显文案统一由前端处理为“账号或密码错误”，后端返回分层错误码。
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            examples:
+              basic:
+                value:
+                  account: user01
+                  password: "********"
+      responses:
+        '200':
+          description: 登录成功
+          headers:
+            Set-Cookie:
+              description: session cookie (HttpOnly; Secure; SameSite=Lax)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginSuccessResponse'
+        '400':
+          description: 入参非法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                badRequest:
+                  value:
+                    error:
+                      code: AUTH_BAD_REQUEST
+                      message: 请求参数不合法
+                      trace_id: 2c5c4f6f-9abc-4bdf-a2cb-9cb3fdaf8c00
+        '401':
+          description: 认证失败（账号不存在/密码错误等统一）
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid:
+                  value:
+                    error:
+                      code: AUTH_INVALID_CREDENTIALS
+                      message: 账号或密码错误
+                      trace_id: 257ef5dd-f8cf-4832-9ef4-4cb4d7eed0be
+        '429':
+          description: 限流或短时锁定
+          headers:
+            Retry-After:
+              description: 建议重试秒数
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                limited:
+                  value:
+                    error:
+                      code: AUTH_RATE_LIMITED
+                      message: 账号或密码错误
+                      trace_id: f6bd6aa2-3413-4ec8-a460-7dc587dcf237
+                locked:
+                  value:
+                    error:
+                      code: AUTH_TEMP_LOCKED
+                      message: 账号或密码错误
+                      trace_id: 8c852f57-4f10-4660-b839-8911e68bf20f
+
+  /v1/auth/logout:
+    post:
+      tags: [Auth]
+      summary: 登出
+      operationId: logout
+      security:
+        - sessionCookie: []
+      responses:
+        '204':
+          description: 登出成功（会话失效）
+        '401':
+          description: 未登录或会话失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalidSession:
+                  value:
+                    error:
+                      code: AUTH_SESSION_INVALID
+                      message: 未登录或登录已失效
+                      trace_id: aa7e8f3e-7169-4f84-b7a4-f9d7f7f77668
+
+  /v1/auth/session:
+    get:
+      tags: [Auth]
+      summary: 查询当前会话状态
+      operationId: getSession
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: 当前会话有效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionResponse'
+        '401':
+          description: 会话无效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  securitySchemes:
+    sessionCookie:
+      type: apiKey
+      in: cookie
+      name: sid
+
+  schemas:
+    LoginRequest:
+      type: object
+      required: [account, password]
+      properties:
+        account:
+          type: string
+          minLength: 1
+          maxLength: 128
+          description: 账号（邮箱或用户名，具体规则待产品确认）
+        password:
+          type: string
+          minLength: 1
+          maxLength: 256
+          format: password
+
+    LoginSuccessResponse:
+      type: object
+      required: [user, session]
+      properties:
+        user:
+          $ref: '#/components/schemas/UserPublic'
+        session:
+          type: object
+          required: [expires_at]
+          properties:
+            expires_at:
+              type: string
+              format: date-time
+              description: 会话过期时间（TTL具体值待确认）
+
+    SessionResponse:
+      type: object
+      required: [authenticated]
+      properties:
+        authenticated:
+          type: boolean
+          example: true
+        user:
+          $ref: '#/components/schemas/UserPublic'
+        expires_at:
+          type: string
+          format: date-time
+
+    UserPublic:
+      type: object
+      required: [id, account]
+      properties:
+        id:
+          type: string
+          format: uuid
+        account:
+          type: string
+          description: 脱敏或规范化后的账号标识
+
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message, trace_id]
+          properties:
+            code:
+              type: string
+              enum:
+                - AUTH_BAD_REQUEST
+                - AUTH_INVALID_CREDENTIALS
+                - AUTH_RATE_LIMITED
+                - AUTH_TEMP_LOCKED
+                - AUTH_SESSION_INVALID
+            message:
+              type: string
+              description: 外显文案统一策略下可返回同一提示
+            trace_id:
+              type: string
+              description: 用于日志追踪
+
+x-acceptance:
+  - id: AC-HTTPS-01
+    title: 生产环境仅HTTPS
+    check: 非HTTPS请求不可获得有效会话Cookie
+  - id: AC-PWD-01
+    title: 密码不明文存储
+    check: DB中仅hash/salt/pepper_version
+  - id: AC-ERR-01
+    title: 统一外显错误
+    check: 账号不存在/密码错误/锁定返回前端统一文案
+  - id: AC-RATE-01
+    title: 限流与锁定生效
+    check: 连续失败达到阈值后返回429与对应内部码
+  - id: AC-SESSION-01
+    title: 会话Cookie安全属性
+    check: Set-Cookie包含HttpOnly; Secure; SameSite
+  - id: AC-LOG-01
+    title: 日志脱敏
+    check: 无明文密码、完整账号、完整IP
+
+x-open-questions:
+  - 会话TTL（绝对过期/空闲过期）具体值
+  - 是否支持“记住我”长会话
+  - 失败阈值与锁定时长是否区分角色
+  - 账号字段最终规范（邮箱/用户名/手机号）
+  - 是否允许多端并发登录

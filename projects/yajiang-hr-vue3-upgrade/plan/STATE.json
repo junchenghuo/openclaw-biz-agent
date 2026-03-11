@@ -1,0 +1,65 @@
+{
+  "project": "雅江HR项目（Vue2升级Vue3）",
+  "milestone": "M1",
+  "version": "v0.2.0-planning",
+  "phase": "planning",
+  "environment": {
+    "dev": "unknown",
+    "staging": "unknown",
+    "prod": "unknown"
+  },
+  "last_updated": "2026-03-06",
+  "stageControl": {
+    "updatedAt": "2026-03-08T14:28:06+08:00",
+    "gateOrder": [
+      "gate0_requirements",
+      "gate1_product_review",
+      "gate2_arch_design_review",
+      "gate3_dev",
+      "gate4_test",
+      "gate5_deploy"
+    ],
+    "gates": {
+      "gate0_requirements": {
+        "total": 0,
+        "done": 0,
+        "passed": true,
+        "waiting": false
+      },
+      "gate1_product_review": {
+        "total": 3,
+        "done": 3,
+        "passed": true,
+        "waiting": false
+      },
+      "gate2_arch_design_review": {
+        "total": 2,
+        "done": 1,
+        "passed": false,
+        "waiting": true
+      },
+      "gate3_dev": {
+        "total": 4,
+        "done": 0,
+        "passed": false,
+        "waiting": true
+      },
+      "gate4_test": {
+        "total": 2,
+        "done": 0,
+        "passed": false,
+        "waiting": true
+      },
+      "gate5_deploy": {
+        "total": 2,
+        "done": 0,
+        "passed": false,
+        "waiting": true
+      }
+    },
+    "nextDispatchGate": "gate2_arch_design_review",
+    "blockedBy": [
+      "gate2_arch_design_review"
+    ]
+  }
+}

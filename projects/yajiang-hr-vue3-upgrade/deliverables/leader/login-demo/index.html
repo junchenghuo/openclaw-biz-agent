@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Glass Login Demo</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="login-card" aria-labelledby="loginTitle">
+        <h1 id="loginTitle">欢迎回来</h1>
+        <p class="subtitle">请登录你的账户</p>
+
+        <form id="loginForm" novalidate>
+          <label class="field">
+            <span>账号</span>
+            <input id="username" name="username" type="text" autocomplete="username" placeholder="请输入账号" />
+            <small class="error" id="usernameError"></small>
+          </label>
+
+          <label class="field">
+            <span>密码</span>
+            <input id="password" name="password" type="password" autocomplete="current-password" placeholder="请输入密码" />
+            <small class="error" id="passwordError"></small>
+          </label>
+
+          <button type="submit" id="submitBtn">登录</button>
+          <p id="result" class="result" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

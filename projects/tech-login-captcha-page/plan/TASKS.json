@@ -1,0 +1,74 @@
+{
+  "tasks": [
+    {
+      "id": "P1",
+      "title": "PRD + 原型（科技风登录页+图形验证码）",
+      "owner": "product",
+      "gate": "gate1_product_review",
+      "status": "done",
+      "deps": [],
+      "inputs": [
+        "projects/tech-login-captcha-page/plan/PROJECT.md"
+      ],
+      "outputs": [
+        "projects/tech-login-captcha-page/product/PRD.md",
+        "projects/tech-login-captcha-page/product/wireframe.png"
+      ],
+      "reviewers": ["pm"],
+      "notes": "Gate-1 评审通过，进入 Gate-2。"
+    },
+    {
+      "id": "A1",
+      "title": "架构/接口方案定稿（/captcha + /login + 安全策略）",
+      "owner": "arch",
+      "gate": "gate2_arch_design_review",
+      "status": "done",
+      "deps": ["P1"],
+      "inputs": [
+        "projects/tech-login-captcha-page/product/PRD.md"
+      ],
+      "outputs": [
+        "projects/tech-login-captcha-page/architecture/ARCH.md"
+      ],
+      "reviewers": ["pm"],
+      "notes": "已产出 architecture/ARCH.md；待确认登录态基线（JWT vs Cookie Session）以最终定稿前端存储与 CSRF 策略。"
+    },
+    {
+      "id": "U1",
+      "title": "UI 视觉稿+组件规范（科技蓝+玻璃质感+粒子背景）",
+      "owner": "ui",
+      "gate": "gate2_arch_design_review",
+      "status": "done",
+      "deps": ["P1"],
+      "inputs": [
+        "projects/tech-login-captcha-page/product/wireframe.png"
+      ],
+      "outputs": [
+        "projects/tech-login-captcha-page/ui/UI.md",
+        "projects/tech-login-captcha-page/ui/mock.png",
+        "projects/tech-login-captcha-page/ui/mock.svg"
+      ],
+      "reviewers": ["pm"],
+      "notes": "已产出 UI.md + mock.png + mock.svg（风格定稿参考）；如需更严格贴合 wireframe 字段顺序，可在 v0.2 微调。"
+    },
+    {
+      "id": "F1",
+      "title": "前端实现：科技风登录页（含图形验证码）",
+      "owner": "fe",
+      "gate": "gate3_dev",
+      "status": "done",
+      "deps": ["A1", "U1"],
+      "inputs": [
+        "projects/tech-login-captcha-page/product/PRD.md",
+        "projects/tech-login-captcha-page/ui/UI.md",
+        "projects/tech-login-captcha-page/architecture/ARCH.md"
+      ],
+      "outputs": [
+        "projects/tech-login-captcha-page/frontend/",
+        "projects/tech-login-captcha-page/frontend/README.md"
+      ],
+      "reviewers": ["pm", "qa"],
+      "notes": "已落地 Vite + React + TS：账号/密码/验证码输入、验证码点击刷新（节流）、Enter 提交、按钮 loading、字段/全局错误提示、失败自动刷新验证码（429 限流除外）、移动端适配、i18n 文案集中管理；默认 Mock，可切换真实接口。截图待补充到 frontend/screenshots。"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+# 可用技能清单
+1. feishu-doc：飞书文档读写操作，适用于飞书文档、云文档、docx链接相关需求
+2. feishu-drive：飞书云存储文件管理，适用于云空间、文件夹、云盘相关需求
+3. feishu-perm：飞书文档和文件权限管理，适用于分享、权限、协作者相关需求
+4. feishu-wiki：飞书知识库导航，适用于知识库、wiki、wiki链接相关需求
+5. coding-agent：编码任务代理，适用于构建新功能、PR评审、大型代码库重构、迭代编码需求
+6. gh-issues：GitHub issue处理，支持获取issue、生成修复方案、提交PR、跟踪评审意见
+7. github：GitHub操作，适用于检查PR/CI状态、创建/评论issue、筛选PR/issue、查看运行日志
+8. healthcheck：主机安全加固与OpenClaw部署风险配置，适用于安全审计、防火墙/SSH/更新加固、风险态势检查、定时检查配置、版本状态检查
+9. imsg：iMessage/SMS CLI，支持列出聊天、历史记录、发送消息
+10. nano-pdf：PDF编辑工具，支持自然语言指令编辑PDF
+11. openai-image-gen：OpenAI图片批量生成工具，支持随机prompt采样和index.html画廊生成
+12. openai-whisper-api：OpenAI音频转录工具，支持音频转文字
+13. session-logs：会话日志搜索分析工具，支持用jq搜索历史会话日志
+14. skill-creator：AgentSkill创建/更新工具，适用于设计、结构化、打包技能（含脚本、引用、资产）
+15. weather：天气查询工具，支持获取当前天气和预报，无需API密钥
+16. image-ocr：图片文字提取工具，支持Tesseract、EasyOCR、PaddleOCR、Google Vision、AWS Textract、Claude Vision，适用于从图片、截图、扫描件、PDF提取文字
+17. PowerPoint PPTX：PowerPoint演示文稿处理工具，支持用python-pptx创建、编辑、自动化处理幻灯片、布局、图表、批量处理
+18. feishu-basic-collab：飞书协同基础技能，规范群内ACK、状态同步、代发与回执闭环
+19. product-prd-doc：产品需求说明书技能，产出可评审PRD，支持.doc导出流程说明
+20. product-prototype-blueprint：产品原型蓝图技能，输出低保真原型结构与页面流转图
+21. product-roi-prioritization：产品ROI优先级技能，建立价值/成本评分并输出版本优先级

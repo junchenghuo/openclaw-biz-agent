@@ -1,0 +1,161 @@
+{
+  "generatedAt": "2026-03-07T08:40:00Z",
+  "contacts": [
+    {
+      "name": "张杰",
+      "role": "ops",
+      "appId": "cli_a92d533a21f9dcc5",
+      "appSecret": "P499N3ZKS6jSAInUytcLTeCBdfXmdnDO",
+      "feishuUserIds": [
+        {
+          "value": "ou_732fdf19712b40b8359c86252554cf89",
+          "source": "openclaw-2026-03-07.log feishu[ops]: bot open_id resolved",
+          "confidence": "bot_open_id"
+        },
+        {
+          "value": "ou_ad419aeedaabe8fc43584fde810b4ca7",
+          "source": "pm session 57f26d1b message_id=om_x100b558ee7ae40a4c34f47fb166f3d6",
+          "confidence": "user_mention_alias"
+        }
+      ],
+      "status": "verified"
+    },
+    {
+      "name": "郑吒",
+      "role": "pm",
+      "appId": "cli_a9226b547bb85cc6",
+      "appSecret": "wS3nGcguNp7hU90z3DWhSb4uHtFCWvqV",
+      "feishuUserIds": [
+        {
+          "value": "ou_cb9a968958048153aa60a24c032e5be2",
+          "source": "pm session system notice",
+          "confidence": "self_id"
+        }
+      ],
+      "status": "leader"
+    },
+    {
+      "name": "萧宏律",
+      "role": "arch",
+      "appId": "cli_a9226b6591389cd4",
+      "appSecret": "Ufup4WHHh44W4RPiQWxJ0ggFnHqHwqlK",
+      "feishuUserIds": [
+        {
+          "value": "ou_e65be57f22224238660e46b8aed65ce2",
+          "source": "openclaw-2026-03-07.log feishu[arch]: bot open_id resolved",
+          "confidence": "bot_open_id"
+        },
+        {
+          "value": "ou_ab1a99b329e3a6a17ef61be4703ebf42",
+          "source": "user message om_x100b5593e5188d38c3e238c4f330387",
+          "confidence": "user_mention_alias"
+        }
+      ],
+      "status": "verified"
+    },
+    {
+      "name": "罗甘道",
+      "role": "fe",
+      "appId": "cli_a9226b88eca3dced",
+      "appSecret": "1hXci1X45fju3XAy8y2C6EwQ7cA4MnY0",
+      "feishuUserIds": [
+        {
+          "value": "ou_4611742ab70b80322231e99746fa717b",
+          "source": "openclaw-2026-03-07.log feishu[fe]: bot open_id resolved",
+          "confidence": "bot_open_id"
+        },
+        {
+          "value": "ou_99c0ca5452415e1801541a578c893b01",
+          "source": "user message om_x100b559cde52d0bcc4c9deecca61aed",
+          "confidence": "user_mention_alias"
+        }
+      ],
+      "status": "verified"
+    },
+    {
+      "name": "罗应龙",
+      "role": "be",
+      "appId": "cli_a9226bb28cf85cb1",
+      "appSecret": "FHC8oMZEPT78HxpX4OJiBm2q5oDhRquh",
+      "feishuUserIds": [
+        {
+          "value": "ou_bb1637f8adf57c0cc9eb21723d717eda",
+          "source": "openclaw-2026-03-07.log feishu[be]: bot open_id resolved",
+          "confidence": "bot_open_id"
+        },
+        {
+          "value": "ou_f28c18dce7ee27f8c218551adcdd38f5",
+          "source": "user message om_x100b55a6ffdf04a8c2646210a272054",
+          "confidence": "user_mention_alias"
+        }
+      ],
+      "status": "verified"
+    },
+    {
+      "name": "詹岚",
+      "role": "qa",
+      "appId": "cli_a9226bc73df85cb0",
+      "appSecret": "T7UC7V72ZKaBpnpqINEUAgm38obloy5H",
+      "feishuUserIds": [
+        {
+          "value": "ou_a209bdc735c8932d1d56dbc098252e95",
+          "source": "openclaw-2026-03-07.log feishu[qa]: bot open_id resolved",
+          "confidence": "bot_open_id"
+        },
+        {
+          "value": "ou_7c7c591ef09c39780354365f043ffab1",
+          "source": "user message om_x100b558ebe3d0ca4c2689ddbe6a57c4",
+          "confidence": "user_mention_alias"
+        },
+        {
+          "value": "ou_27f3d575f3c42ad440a2305369758c7c",
+          "source": "product session message om_x100b558ebe3d0ca4c2689ddbe6a57c4",
+          "confidence": "user_mention_alias"
+        }
+      ],
+      "status": "verified"
+    },
+    {
+      "name": "铭烟薇",
+      "role": "ui",
+      "appId": "cli_a9212422c7b9dbde",
+      "appSecret": "TvYZexdwQeT1MDodoSHhzfneI1KhrU1p",
+      "feishuUserIds": [
+        {
+          "value": "ou_e9e8e1c3e04d367c8a57d74f448d2247",
+          "source": "openclaw-2026-03-07.log feishu[ui]: bot open_id resolved",
+          "confidence": "bot_open_id"
+        }
+      ],
+      "status": "verified"
+    },
+    {
+      "name": "赵樱空",
+      "role": "ai",
+      "appId": "cli_a92125e916f95bd1",
+      "appSecret": "0FSMqwczY1h8gfcJgLdGHbUOtNpUDQLZ",
+      "feishuUserIds": [
+        {
+          "value": "ou_e0f5a3ba65a4b721fd722553b06025d3",
+          "source": "openclaw-2026-03-07.log feishu[ai]: bot open_id resolved",
+          "confidence": "bot_open_id"
+        }
+      ],
+      "status": "verified"
+    },
+    {
+      "name": "楚轩",
+      "role": "product",
+      "appId": "cli_a92124778538dbd1",
+      "appSecret": "zop3MXLbLpRkeOyXHnHg0fsUdcahVh6c",
+      "feishuUserIds": [
+        {
+          "value": "ou_aa138ca128fea637db02e34042f48d35",
+          "source": "openclaw-2026-03-07.log feishu[product]: bot open_id resolved",
+          "confidence": "bot_open_id"
+        }
+      ],
+      "status": "verified"
+    }
+  ]
+}

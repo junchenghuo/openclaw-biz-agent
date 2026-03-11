@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <!-- Background gradients -->
+    <radialGradient id="bgGlow1" cx="30%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#0B2A5A" stop-opacity="0.85"/>
+      <stop offset="55%" stop-color="#07142E" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#050B1A" stop-opacity="1"/>
+    </radialGradient>
+    <radialGradient id="bgGlow2" cx="75%" cy="70%" r="55%">
+      <stop offset="0%" stop-color="#1B3B86" stop-opacity="0.45"/>
+      <stop offset="70%" stop-color="#050B1A" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#050B1A" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Glass card -->
+    <linearGradient id="glassTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5EE7FF" stop-opacity="0.16"/>
+      <stop offset="45%" stop-color="#FFFFFF" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.04"/>
+    </linearGradient>
+
+    <!-- Primary button gradient -->
+    <linearGradient id="btnGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="100%" stop-color="#7C5CFF"/>
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="softBlur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+
+    <filter id="cardShadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="22" stdDeviation="26" flood-color="#000000" flood-opacity="0.55"/>
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+
+    <filter id="neonGlow" x="-40%" y="-60%" width="180%" height="220%">
+      <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="#22D3EE" flood-opacity="0.55"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="18" flood-color="#5EE7FF" flood-opacity="0.35"/>
+    </filter>
+
+    <filter id="inputGlow" x="-40%" y="-60%" width="180%" height="220%">
+      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#22D3EE" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Subtle noise via pattern (lightweight) -->
+    <pattern id="noise" width="120" height="120" patternUnits="userSpaceOnUse">
+      <circle cx="18" cy="22" r="1" fill="#FFFFFF" opacity="0.06"/>
+      <circle cx="68" cy="42" r="1.2" fill="#5EE7FF" opacity="0.08"/>
+      <circle cx="92" cy="80" r="0.9" fill="#FFFFFF" opacity="0.05"/>
+      <circle cx="40" cy="92" r="1.1" fill="#7C5CFF" opacity="0.07"/>
+      <circle cx="105" cy="18" r="0.8" fill="#FFFFFF" opacity="0.05"/>
+    </pattern>
+
+    <style>
+      .t1{font-family: -apple-system,BlinkMacSystemFont,"PingFang SC","Inter",Segoe UI,Roboto,Helvetica,Arial; fill: rgba(255,255,255,0.92);} 
+      .t2{font-family: -apple-system,BlinkMacSystemFont,"PingFang SC","Inter",Segoe UI,Roboto,Helvetica,Arial; fill: rgba(255,255,255,0.72);} 
+      .t3{font-family: -apple-system,BlinkMacSystemFont,"PingFang SC","Inter",Segoe UI,Roboto,Helvetica,Arial; fill: rgba(255,255,255,0.48);} 
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="1600" height="900" fill="url(#bgGlow1)"/>
+  <rect x="0" y="0" width="1600" height="900" fill="url(#bgGlow2)"/>
+  <rect x="0" y="0" width="1600" height="900" fill="url(#noise)" opacity="0.9"/>
+
+  <!-- Big blurred orbs -->
+  <circle cx="320" cy="210" r="180" fill="#22D3EE" opacity="0.10" filter="url(#softBlur)"/>
+  <circle cx="1320" cy="640" r="220" fill="#7C5CFF" opacity="0.10" filter="url(#softBlur)"/>
+  <circle cx="1100" cy="220" r="140" fill="#5EE7FF" opacity="0.08" filter="url(#softBlur)"/>
+
+  <!-- PC Card -->
+  <g transform="translate(210,160)" filter="url(#cardShadow)">
+    <rect x="0" y="0" width="520" height="580" rx="22" fill="rgba(255,255,255,0.06)"/>
+    <rect x="0" y="0" width="520" height="580" rx="22" fill="url(#glassTop)" opacity="0.9"/>
+    <rect x="0" y="0" width="520" height="580" rx="22" fill="none" stroke="rgba(255,255,255,0.16)"/>
+
+    <!-- Header -->
+    <circle cx="56" cy="58" r="18" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.18)"/>
+    <text x="90" y="66" class="t1" font-size="20" font-weight="600">欢迎登录</text>
+    <text x="90" y="92" class="t2" font-size="12">深色科技蓝 · 玻璃质感 · 霓虹按钮</text>
+
+    <!-- Inputs -->
+    <g transform="translate(56,130)">
+      <text x="0" y="0" class="t2" font-size="12">账号</text>
+      <rect x="0" y="12" width="408" height="44" rx="14" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.16)"/>
+      <text x="14" y="40" class="t3" font-size="12">请输入账号 / Username</text>
+
+      <text x="0" y="88" class="t2" font-size="12">密码</text>
+      <rect x="0" y="100" width="408" height="44" rx="14" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.16)"/>
+      <text x="14" y="128" class="t3" font-size="12">请输入密码 / Password</text>
+
+      <text x="0" y="176" class="t2" font-size="12">验证码</text>
+      <!-- Captcha row -->
+      <rect x="0" y="188" width="276" height="44" rx="14" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.16)"/>
+      <text x="14" y="216" class="t3" font-size="12">输入验证码</text>
+
+      <g transform="translate(288,188)">
+        <rect x="0" y="0" width="120" height="44" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.14)"/>
+        <path d="M18 28 C 34 10, 58 36, 76 16 C 88 2, 106 20, 102 34" fill="none" stroke="#5EE7FF" stroke-opacity="0.75" stroke-width="2"/>
+        <text x="16" y="30" class="t1" font-size="14" font-weight="700" fill="rgba(255,255,255,0.86)">A7K9</text>
+        <path d="M100 10 a6 6 0 1 0 0.1 0" fill="none" stroke="#22D3EE" stroke-opacity="0.75" stroke-width="1.6"/>
+        <path d="M100 10 l-2 6 l6-2" fill="#22D3EE" opacity="0.75"/>
+      </g>
+
+      <text x="0" y="252" class="t2" font-size="12" fill="rgba(255,255,255,0.62)">提示：看不清可点击刷新</text>
+
+      <!-- Error example -->
+      <text x="0" y="286" class="t2" font-size="12" fill="#FF4D6D">验证码错误，请重试</text>
+
+      <!-- Primary button -->
+      <g transform="translate(0,320)" filter="url(#neonGlow)">
+        <rect x="0" y="0" width="408" height="44" rx="14" fill="url(#btnGrad)"/>
+        <text x="204" y="28" text-anchor="middle" class="t1" font-size="14" font-weight="700">登录</text>
+      </g>
+
+      <!-- Links -->
+      <text x="0" y="392" class="t2" font-size="12">忘记密码</text>
+      <text x="340" y="392" class="t2" font-size="12">注册账号</text>
+
+      <!-- Footnote -->
+      <text x="0" y="430" class="t3" font-size="11">i18n：按钮/提示按英文长度 1.6× 预留</text>
+    </g>
+  </g>
+
+  <!-- Mobile mock (right side) -->
+  <g transform="translate(980,130)" filter="url(#cardShadow)">
+    <rect x="0" y="0" width="290" height="640" rx="34" fill="rgba(10,18,46,0.65)" stroke="rgba(255,255,255,0.14)"/>
+    <rect x="18" y="20" width="254" height="600" rx="26" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)"/>
+
+    <text x="44" y="78" class="t1" font-size="18" font-weight="700">欢迎登录</text>
+    <text x="44" y="104" class="t2" font-size="12">移动端：卡片全宽、按钮全宽</text>
+
+    <!-- Mobile fields -->
+    <g transform="translate(44,132)">
+      <rect x="0" y="0" width="202" height="44" rx="14" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.16)"/>
+      <text x="14" y="28" class="t3" font-size="12">账号</text>
+
+      <rect x="0" y="58" width="202" height="44" rx="14" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.16)"/>
+      <text x="14" y="86" class="t3" font-size="12">密码</text>
+
+      <rect x="0" y="116" width="120" height="44" rx="14" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.16)"/>
+      <text x="14" y="144" class="t3" font-size="12">验证码</text>
+
+      <rect x="132" y="116" width="70" height="44" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.14)"/>
+      <text x="146" y="144" class="t1" font-size="12" font-weight="700">A7K9</text>
+
+      <g transform="translate(0,186)" filter="url(#neonGlow)">
+        <rect x="0" y="0" width="202" height="48" rx="16" fill="url(#btnGrad)"/>
+        <text x="101" y="30" text-anchor="middle" class="t1" font-size="14" font-weight="700">登录</text>
+      </g>
+
+      <text x="0" y="266" class="t3" font-size="11">错误提示：12px，红色语义</text>
+    </g>
+  </g>
+
+  <!-- Title label -->
+  <text x="72" y="64" class="t2" font-size="12">tech-login-captcha-page · Gate-2 Mock · v0.1</text>
+</svg>
