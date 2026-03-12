@@ -21,6 +21,12 @@
 - 深度参与 B2B2C 电商与供应链核心链路建设，具备支付中台与分账结算实践。
 - 聚焦 AI Agent 工程化落地，覆盖 RAG、Tool Calling、MCP 与 Skills 资产化建设。
 
+## 本次改进点（2026-03-12）
+
+- 为多角色协议文件补充 Mattermost 快速已读规则：收到消息先加 `:ok_hand:`，再回执 `已接单/done/blocked`。
+- 清理历史示例交付物（`projects/login-page-delivery` 与 `projects/common-ui-components` 下旧文档与图片），降低仓库冗余。
+- 保留并强化“Leader 统一调度、角色标准回执”的协作约束，便于后续任务编排与过程审计。
+
 ---
 
 ## 角色设定来源（可直接阅读）
