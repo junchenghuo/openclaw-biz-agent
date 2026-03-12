@@ -27,12 +27,6 @@
 - 清理历史示例交付物（`projects/login-page-delivery` 与 `projects/common-ui-components` 下旧文档与图片），降低仓库冗余。
 - 保留并强化“Leader 统一调度、角色标准回执”的协作约束，便于后续任务编排与过程审计。
 
-### 补充说明（第二次提交）
-
-- 为各角色补齐 `mattermost-openclaw-media` 技能脚本：`stage_file_for_mattermost.py`，统一“先暂存再发送”的附件流程。
-- 同步更新各角色技能文档，明确 `MEDIA:` 标记、相对路径要求与失败回报规范，防止“口头已发送”。
-- 继续维持多角色协作规范一致性，确保 Leader 派单链路与回执口径统一。
-
 ---
 
 ## 角色设定来源（可直接阅读）
