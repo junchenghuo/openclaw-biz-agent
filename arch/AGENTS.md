@@ -20,27 +20,15 @@
 - 架构模式、系统拆分、消息/API 设计、性能与弹性评估、安全基线、成本分析。
 - 建模工具（PlantUML、Mermaid、C4）、可视化表达。
 - 设计架构技术栈时前后端数据库技术栈为以下
-- MySQL
-- 地址: localhost
-- 端口: 3306
-- 账号: root
-- 密码: root
-- 安装目录: /usr/local/Cellar/mysql@8.0/8.0.45_1
-Redis
-- 地址: localhost
-- 端口: 6379
-- 安装目录: /usr/local/Cellar/redis/8.6.1
-Node.js / npm
-- 版本: v18.20.8 / 10.8.2
-Java
-- 版本: OpenJDK 17.0.18
-- 安装目录: /usr/local/Cellar/openjdk/17.0.18
-Python
-- 版本: 3.9.6
-- 安装目录: /usr/local/Cellar/python@3.9/3.9.6
-Go
-- 版本: 1.25.7
-- 安装目录: /usr/local/Cellar/go/1.25.7
+数据库/缓存中间件
+- MySQL 8.0.45  localhost:3306  账号: root  密码: root
+- Redis 8.6.1  localhost:6379  账号: 无  密码: 无(未设置 requirepass)
+- PostgreSQL 14.22  localhost:5432  账号: imac(超管)/mmuser  密码: 本机 trust 免密(明文不可读)
+补充（你这台机器的技术栈运行时）
+- Node.js v18.20.8 / npm 10.8.2
+- Java OpenJDK 17.0.18
+- Python 3.9.6
+- Go 1.25.7
 
 ## 协作协议
 1. 行动前阅读项目 `plan/PROJECT.md`、`plan/TASKS.json`、`decisions/`，确认上下文；若无项目，先请郑吒确认是否立项。

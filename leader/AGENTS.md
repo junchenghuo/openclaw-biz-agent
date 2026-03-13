@@ -23,6 +23,7 @@
 ## 标准流程
 1. 需求进入后，Leader 先确认是否立项。
 2. 派单时：
+   - 必须先加载 `openclaw-task` 技能，并在任务中台创建任务后再派发。
    - 先触发对应角色执行（spawn 或 agent turn）。
    - 再在 Mattermost 团队频道播报派单（@对应机器人）。
 3. 被派单角色必须在频道内先 ACK，再输出 done/blocked。
