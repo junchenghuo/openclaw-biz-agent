@@ -1,0 +1,27 @@
+{
+  "color": {
+    "primary": "#1F3A5F",
+    "accent": "#C89B3C",
+    "bg": "#F7F3EA",
+    "textPrimary": "#1E1E1E",
+    "textSecondary": "#666666",
+    "error": "#B42318",
+    "success": "#067647"
+  },
+  "radius": {
+    "card": 16,
+    "input": 12,
+    "button": 12
+  },
+  "spacing": {
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 24,
+    "2xl": 32
+  },
+  "shadow": {
+    "card": "0 8px 24px rgba(31,58,95,0.10)"
+  }
+}
