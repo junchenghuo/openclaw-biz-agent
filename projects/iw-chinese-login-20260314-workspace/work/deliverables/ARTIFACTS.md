@@ -17,6 +17,13 @@
   - 类型：设计 Token
   - 版本：V1.1
   - 状态：可供 FE 落地
+- `../tech/frontend/login-cn-v1.1/`
+  - 类型：前端页面实现（HTML/CSS/JS）
+  - 版本：V1.1
+  - 状态：已完成静态实现与响应式适配（待联调 API）
+- `../tech/frontend/login-cn-v1.1/README.md`
+  - 类型：运行说明 + 自测记录
+  - 状态：已提交
 - `deliverables/ui/images/ui-login-v1.1-main.png`
   - 类型：UI 设计图（PC 主图）
   - 版本：V1.1

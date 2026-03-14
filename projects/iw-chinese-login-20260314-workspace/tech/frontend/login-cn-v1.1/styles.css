@@ -1,0 +1,201 @@
+:root {
+  --primary: #1f3a5f;
+  --primary-hover: #274a77;
+  --primary-active: #16304f;
+  --accent: #c89b3c;
+  --bg: #f7f3ea;
+  --text-main: #1e1e1e;
+  --text-sub: #666666;
+  --error: #b42318;
+  --line: #d0d5dd;
+  --line-hover: #98a2b3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text-main);
+  background: var(--bg);
+  font-family: "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.page-bg-pattern {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(31, 58, 95, 0.04), transparent 45%),
+    radial-gradient(circle at 70% 70%, rgba(200, 155, 60, 0.04), transparent 40%);
+}
+
+.layout {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 6fr 4fr;
+  gap: 40px;
+  align-items: center;
+  padding: 40px 6vw;
+}
+
+.brand h1 {
+  font-family: "Source Han Serif SC", "Songti SC", serif;
+  font-size: clamp(2rem, 2.6vw, 2.25rem);
+  margin: 0;
+}
+
+.subtitle {
+  margin-top: 14px;
+  font-size: 1.125rem;
+  color: var(--text-sub);
+}
+
+.tagline {
+  margin-top: 10px;
+  color: var(--primary);
+}
+
+.seal {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background: #8f1d22;
+  color: #fff;
+  font-family: "Source Han Serif SC", "Songti SC", serif;
+  margin-bottom: 14px;
+}
+
+.card-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: min(440px, 100%);
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(31, 58, 95, 0.1);
+  padding: 28px;
+}
+
+.card h2 {
+  margin: 0 0 20px;
+  color: var(--primary);
+}
+
+label {
+  display: block;
+  margin: 12px 0 8px;
+  font-size: 0.9375rem;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0 12px;
+  font-size: 1rem;
+  outline: none;
+}
+
+input:hover {
+  border-color: var(--line-hover);
+}
+
+input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(31, 58, 95, 0.18);
+}
+
+input.input-error {
+  border-color: var(--error);
+}
+
+.field-error,
+.global-error {
+  margin: 6px 0 0;
+  min-height: 20px;
+  font-size: 0.875rem;
+  color: var(--error);
+}
+
+.password-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.text-btn {
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--primary);
+  padding: 0 12px;
+}
+
+.options-row {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkbox-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.checkbox-wrap input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
+.submit-btn {
+  width: 100%;
+  min-height: 44px;
+  border: 0;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--primary);
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.submit-btn:hover { background: var(--primary-hover); }
+.submit-btn:active { background: var(--primary-active); }
+.submit-btn:disabled {
+  background: var(--line-hover);
+  cursor: not-allowed;
+}
+
+@media (max-width: 1279px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    justify-items: center;
+    padding: 28px 20px;
+  }
+
+  .brand {
+    text-align: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .card { padding: 20px; }
+}
