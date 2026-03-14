@@ -32,6 +32,14 @@
   - 类型：UI 设计图（Mobile）
   - 版本：V1.1
   - 状态：可发送
+- `deliverables/ui/images/ui-login-v1.2-main.png`
+  - 类型：UI 改版图（PC 主图）
+  - 版本：V1.2（字体/中国风强化）
+  - 状态：可发送
+- `deliverables/ui/images/ui-login-v1.2-mobile.png`
+  - 类型：UI 改版图（Mobile）
+  - 版本：V1.2（字体/中国风强化）
+  - 状态：可发送
 - `qa/QA_登录页测试记录_20260314.md`
   - 类型：QA 测试记录（阶段性）
   - 版本：V0.1
