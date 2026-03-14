@@ -8,4 +8,3 @@
   - `deliverables/`：最终交付索引与文件（含 PRD/PPT/代码包等）。
   - `product/`、`architecture/`、`tech/frontend|backend|ai/`、`qa/`、`ops/`：角色专属设计与说明。
 - 立项流程：Leader 必须先询问用户是否立项；仅在得到“立项”回复后创建新目录并记录 `plan/PROJECT.md`。
-- 非项目类工作一律登记在 `/Users/imac/midCreate/openclaw-workspaces/ai-team/tasks/TASKS.csv`，不得混入项目目录。
