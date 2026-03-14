@@ -1,6 +1,14 @@
 # ARTIFACTS
 
 ## 2026-03-14
+- `deliverables/product/产品说明书_验收清单+登录文案_V1.1.md`
+  - 类型：产品说明书
+  - 版本：V1.1
+  - 状态：可交付（最终口径基线）
+- `deliverables/product/中国风登录页_产品原型图_V1.1.png`
+  - 类型：产品原型图（PNG）
+  - 版本：V1.1
+  - 状态：可发送
 - `deliverables/ui/中国风登录页_视觉规范_V1.1.md`
   - 类型：视觉规范文档
   - 版本：V1.1
@@ -9,6 +17,14 @@
   - 类型：设计 Token
   - 版本：V1.1
   - 状态：可供 FE 落地
+- `deliverables/ui/images/ui-login-v1.1-main.png`
+  - 类型：UI 设计图（PC 主图）
+  - 版本：V1.1
+  - 状态：可发送
+- `deliverables/ui/images/ui-login-v1.1-mobile.png`
+  - 类型：UI 设计图（Mobile）
+  - 版本：V1.1
+  - 状态：可发送
 - `qa/QA_登录页测试记录_20260314.md`
   - 类型：QA 测试记录（阶段性）
   - 版本：V0.1
