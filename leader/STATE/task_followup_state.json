@@ -1,9 +1,1 @@
-{
-  "45": {
-    "signature": "45|60:PENDING:郑吒（leader）:2026-03-15T08:21:55.071863|63:PENDING:罗甘道（fe）:2026-03-15T08:53:03.969844|64:PENDING:罗甘道（fe）:2026-03-15T08:53:22.522216",
-    "updatedAt": "2026-03-15T12:20:06",
-    "inviteFailures": {},
-    "lastAdminAlertAt": null,
-    "lastAdminAlertUsers": []
-  }
-}
+{}
