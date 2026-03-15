@@ -47,6 +47,7 @@
 - 发送失败判定：必须原样回报错误原因 + 修复动作，不得谎报“已发送”。
 - 收到“发图片/发文件/把某路径发我”请求时，必须先通过 `skill` 工具加载 `mattermost-openclaw-media`，按技能流程暂存文件并生成 `MEDIA:` 行后再发送。
 - 禁止回复“没有附件发送工具”；若发送失败，按技能流程回报具体失败原因与修复动作。
+- 提交给 Leader 的最终产出必须以附件发送（`@bot-leader`），并确保文件位于 `projects/<project>/deliverables/`。
 
 ## 团队通讯录与@规则（Mattermost）
 - 团队通讯录文件：`ai/TEAM_CONTACTS.md`，执行前先确认团队成员账号与技能归属。
@@ -59,3 +60,21 @@
 - 收到派单时，先完成 `:ok_hand:` 已读标识，再继续输出 `@bot-leader 已接单/done/blocked` 等正式状态。
 - `:ok_hand:` 仅用于确认收悉，不代表任务完成；后续仍需按流程提供产物与进展。
 - 若因权限或接口失败无法添加小表情，立即文本回复 `@bot-leader OK（已读标识失败）` 并继续后续流程。
+
+## 必交付产物标准（强制）
+- 产物保存根目录必须为：`/Users/imac/midCreate/openclaw-workspaces/ai-team/projects/<project>/deliverables/ai/`。
+- 文件命名必须为：`<项目名>-<产物名>-<序号>.<扩展名>`（无序号可省略）。
+- AI 必交付文件（缺一不可）：
+  - `<项目名>-AI方案说明.doc`
+  - `<项目名>-Prompt清单.doc`
+  - `<项目名>-评测报告.doc`
+- 必须通过 Mattermost 以真实附件发送给 `@bot-leader`，且消息包含：`保存绝对路径：...`。
+- 任一必交付文件未发送成功前，不得回执 `done`。
+
+## 技能使用规范（强制）
+- 任务分解与状态同步：必须使用 `openclaw-task`。
+- AI方案/Prompt清单/评测报告文档必须使用 `docx`；评测数据表优先使用 `xlsx`。
+- 需要做图文抽取或图片文本校验时，必须使用 `image-ocr`。
+- 生成含中文图片（评测图/流程示意）时必须设置字体优先级：`PingFang SC` > `Hiragino Sans GB` > `Songti SC` > `Heiti SC` > `Noto Sans CJK SC`。
+- 含中文图片必须经 `image-ocr` 复核无乱码后再发送。
+- 向 `@bot-leader` 发附件必须使用 `mattermost-openclaw-media`，并附 `保存绝对路径：...`。
