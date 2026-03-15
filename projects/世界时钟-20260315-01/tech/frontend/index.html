@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>世界时钟 - World Clock</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .app {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+
+    .title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .search-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+
+    .search-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .search-panel {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .search-results {
+      margin-top: 8px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .search-item {
+      padding: 12px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .search-item:hover {
+      background: #f5f5f5;
+    }
+
+    .loading, .error {
+      text-align: center;
+      color: #fff;
+      font-size: 1.1rem;
+      padding: 40px;
+    }
+
+    .error {
+      color: #ff6b6b;
+    }
+
+    /* 时钟网格 - 桌面端 4x2 */
+    .clock-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    /* 时钟卡片 */
+    .clock-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .clock-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .clock-city {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+
+    .clock-time {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #16213e;
+      margin-bottom: 8px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .clock-date {
+      font-size: 0.875rem;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    .clock-timezone {
+      font-size: 0.75rem;
+      color: #999;
+    }
+
+    /* 平板端 2x4 */
+    @media (max-width: 1024px) {
+      .clock-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* 移动端 单列 */
+    @media (max-width: 640px) {
+      .app {
+        padding: 16px;
+      }
+      
+      .header {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+      
+      .clock-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="app">
+      <header class="header">
+        <h1 class="title">🌍 世界时钟</h1>
+        <button class="search-btn" @click="showSearch = !showSearch">
+          🔍 添加城市
+        </button>
+      </header>
+
+      <!-- 搜索面板 -->
+      <div v-if="showSearch" class="search-panel">
+        <input 
+          v-model="searchQuery"
+          @input="handleSearch"
+          type="text" 
+          placeholder="搜索城市或时区..."
+          class="search-input"
+        />
+        <div v-if="searchResults.length > 0" class="search-results">
+          <div 
+            v-for="item in searchResults" 
+            :key="item.timezone"
+            class="search-item"
+            @click="addClock(item)"
+          >
+            {{ item.name }} ({{ item.timezone }})
+          </div>
+        </div>
+      </div>
+
+      <!-- 加载状态 -->
+      <div v-if="loading" class="loading">
+        加载中...
+      </div>
+
+      <!-- 错误提示 -->
+      <div v-else-if="error" class="error">
+        {{ error }}
+      </div>
+
+      <!-- 时钟网格 -->
+      <div v-else class="clock-grid">
+        <div 
+          v-for="clock in clocks" 
+          :key="clock.id"
+          class="clock-card"
+        >
+          <div class="clock-city">{{ clock.name }}</div>
+          <div class="clock-time">{{ getTimeForTimezone(clock.timezone) }}</div>
+          <div class="clock-date">{{ getDateForTimezone(clock.timezone) }}</div>
+          <div class="clock-timezone">{{ getUtcOffset(clock.timezone) }} · {{ clock.timezone }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, onMounted, onUnmounted } = Vue
+
+    // 默认8个时区
+    const defaultClocks = [
+      { id: 1, name: '北京', timezone: 'Asia/Shanghai' },
+      { id: 2, name: '东京', timezone: 'Asia/Tokyo' },
+      { id: 3, name: '伦敦', timezone: 'Europe/London' },
+      { id: 4, name: '纽约', timezone: 'America/New_York' },
+      { id: 5, name: '巴黎', timezone: 'Europe/Paris' },
+      { id: 6, name: '悉尼', timezone: 'Australia/Sydney' },
+      { id: 7, name: '迪拜', timezone: 'Asia/Dubai' },
+      { id: 8, name: '洛杉矶', timezone: 'America/Los_Angeles' }
+    ]
+
+    createApp({
+      setup() {
+        const clocks = ref([...defaultClocks])
+        const loading = ref(false)
+        const error = ref('')
+        const searchQuery = ref('')
+        const searchResults = ref([])
+        const showSearch = ref(false)
+        let timer = null
+
+        const getTimeForTimezone = (timezone) => {
+          try {
+            return new Date().toLocaleTimeString('zh-CN', {
+              timeZone: timezone,
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit',
+              hour12: false
+            })
+          } catch (e) {
+            return '--:--:--'
+          }
+        }
+
+        const getDateForTimezone = (timezone) => {
+          try {
+            return new Date().toLocaleDateString('zh-CN', {
+              timeZone: timezone,
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+              weekday: 'long'
+            })
+          } catch (e) {
+            return ''
+          }
+        }
+
+        const getUtcOffset = (timezone) => {
+          try {
+            const now = new Date()
+            const targetDate = new Date(now.toLocaleString('en-US', { timeZone: timezone }))
+            const utcDate = new Date(now.toLocaleString('en-US', { timeZone: 'UTC' }))
+            const diffMinutes = (targetDate.getTime() - utcDate.getTime()) / 60000
+            const hours = Math.floor(Math.abs(diffMinutes) / 60)
+            const minutes = Math.abs(diffMinutes) % 60
+            const sign = diffMinutes >= 0 ? '+' : '-'
+            return `UTC${sign}${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
+          } catch (e) {
+            return 'UTC'
+          }
+        }
+
+        const handleSearch = () => {
+          if (!searchQuery.value.trim()) {
+            searchResults.value = []
+            return
+          }
+          // 简单客户端搜索
+          const q = searchQuery.value.toLowerCase()
+          const allTimezones = [
+            { name: '北京', timezone: 'Asia/Shanghai' },
+            { name: '上海', timezone: 'Asia/Shanghai' },
+            { name: '东京', timezone: 'Asia/Tokyo' },
+            { name: '首尔', timezone: 'Asia/Seoul' },
+            { name: '伦敦', timezone: 'Europe/London' },
+            { name: '巴黎', timezone: 'Europe/Paris' },
+            { name: '柏林', timezone: 'Europe/Berlin' },
+            { name: '纽约', timezone: 'America/New_York' },
+            { name: '洛杉矶', timezone: 'America/Los_Angeles' },
+            { name: '旧金山', timezone: 'America/Los_Angeles' },
+            { name: '悉尼', timezone: 'Australia/Sydney' },
+            { name: '墨尔本', timezone: 'Australia/Melbourne' },
+            { name: '迪拜', timezone: 'Asia/Dubai' },
+            { name: '新加坡', timezone: 'Asia/Singapore' },
+            { name: '香港', timezone: 'Asia/Hong_Kong' }
+          ]
+          searchResults.value = allTimezones.filter(t => 
+            t.name.toLowerCase().includes(q) || 
+            t.timezone.toLowerCase().includes(q)
+          ).slice(0, 5)
+        }
+
+        const addClock = (clock) => {
+          if (!clocks.value.find(c => c.timezone === clock.timezone)) {
+            clocks.value.push({ ...clock, id: Date.now() })
+          }
+          searchQuery.value = ''
+          searchResults.value = []
+          showSearch.value = false
+        }
+
+        const fetchClocks = async () => {
+          loading.value = true
+          error.value = ''
+          try {
+            const response = await fetch('/api/clocks')
+            const data = await response.json()
+            if (data.code === 0 && data.data.length > 0) {
+              clocks.value = data.data
+            }
+          } catch (e) {
+            console.warn('API unavailable, using default clocks')
+          } finally {
+            loading.value = false
+          }
+        }
+
+        onMounted(() => {
+          fetchClocks()
+          // 每秒更新
+          timer = setInterval(() => {
+            // 触发响应式更新
+            clocks.value = [...clocks.value]
+          }, 1000)
+        })
+
+        onUnmounted(() => {
+          if (timer) clearInterval(timer)
+        })
+
+        return {
+          clocks,
+          loading,
+          error,
+          searchQuery,
+          searchResults,
+          showSearch,
+          getTimeForTimezone,
+          getDateForTimezone,
+          getUtcOffset,
+          handleSearch,
+          addClock
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>
