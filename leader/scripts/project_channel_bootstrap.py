@@ -66,6 +66,12 @@ def main() -> int:
     parser.add_argument("--project-code", required=True)
     parser.add_argument("--display-name", default="")
     parser.add_argument("--project-name", default="")
+    parser.add_argument("--project-id", default="")
+    parser.add_argument("--goal", default="")
+    parser.add_argument("--scope", default="")
+    parser.add_argument("--milestones", default="")
+    parser.add_argument("--acceptance", default="")
+    parser.add_argument("--raw-demand", default="")
     parser.add_argument("--kickoff-next", default="请在本频道确认启动会议程与时间")
     parser.add_argument("--purpose", default="项目协作")
     parser.add_argument("--header", default="统一由 @bot-leader 调度")
@@ -161,9 +167,16 @@ def main() -> int:
 
     startup_text = (
         f"@admin @bot-product @bot-arch 项目启动通知\n"
+        f"projectId：{args.project_id or '待回填'}\n"
+        f"projectCode：{args.project_code}\n"
         f"项目名称：{project_name}\n"
         f"channelId：{channel_id}\n"
         f"频道名称：{display_name}\n"
+        f"原始需求：{args.raw_demand or '（未提供）'}\n"
+        f"目标：{args.goal or '（未提供）'}\n"
+        f"范围：{args.scope or '（未提供）'}\n"
+        f"里程碑：{args.milestones or '（未提供）'}\n"
+        f"验收标准：{args.acceptance or '（未提供）'}\n"
         f"下一步：{args.kickoff_next}"
     )
     startup_status, startup_resp = mm_api(

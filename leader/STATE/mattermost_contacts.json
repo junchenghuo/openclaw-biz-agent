@@ -14,63 +14,35 @@
     {
       "role": "leader",
       "account": "pm",
-      "name": "郑吒（Team Leader）",
+      "name": "郑吒（统筹调度专家）",
       "username": "bot-leader",
       "user_id": "edr9pxyn1bntmmwa5n9iummrde"
     },
     {
       "role": "product",
       "account": "product",
-      "name": "楚轩（产品经理）",
+      "name": "楚轩（产品与设计专家）",
       "username": "bot-product",
       "user_id": "3aykgq9pmincudg9bj57xrie4o"
     },
     {
       "role": "arch",
       "account": "arch",
-      "name": "萧宏律（架构师）",
+      "name": "萧宏律（全栈研发专家）",
       "username": "bot-arch",
       "user_id": "fjnij9wzm3gpmd6khpsawr58uh"
     },
     {
-      "role": "fe",
-      "account": "fe",
-      "name": "罗甘道（前端开发）",
-      "username": "bot-fe",
-      "user_id": "iea9bwt9zig3df45wpx5jbzemw"
-    },
-    {
-      "role": "be",
-      "account": "be",
-      "name": "罗应龙（后端开发）",
-      "username": "bot-be",
-      "user_id": "3ktsy194jjb88p9u1huwb88p6a"
-    },
-    {
       "role": "qa",
       "account": "qa",
-      "name": "詹岚（测试工程师）",
+      "name": "詹岚（质量与运维专家）",
       "username": "bot-test",
       "user_id": "t9f4osdqpjyj9xrdnaxbft1miy"
     },
     {
-      "role": "ops",
-      "account": "ops",
-      "name": "张杰（运维工程师）",
-      "username": "bot-ops",
-      "user_id": "ddg9ne8ip3gdmmij177wk6889o"
-    },
-    {
-      "role": "ui",
-      "account": "ui",
-      "name": "铭烟薇（UI设计）",
-      "username": "bot-ui",
-      "user_id": "5jxfy7ikbjrcuxazktepmkgpge"
-    },
-    {
       "role": "ai",
       "account": "ai",
-      "name": "赵樱空（AI专家）",
+      "name": "赵樱空（停用）",
       "username": "bot-ai",
       "user_id": "p5a3nragspf48p8dqsgb3j6ezw"
     }

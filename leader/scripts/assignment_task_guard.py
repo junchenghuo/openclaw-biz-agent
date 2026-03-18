@@ -22,8 +22,13 @@ STATE_PATH = BASE_DIR / "STATE" / "assignment_task_guard_state.json"
 TASK_CENTER_BASE = os.getenv("TASK_CENTER_BASE_URL", "http://127.0.0.1:18080")
 MM_ACCOUNT = os.getenv("MATTERMOST_ALERT_ACCOUNT", "pm")
 
-TASK_CODE_RE = re.compile(r"(?:TASK-\d{14}-\d{4}|T\d{10,})")
-ROLE_MENTION_RE = re.compile(r"@(bot-(?:product|arch|fe|be|test|ops|ui|ai))")
+TASK_CODE_RE = re.compile(r"T\d{1,}")
+ROLE_MENTION_RE = re.compile(r"@(bot-(?:product|arch|test|ai))")
+PROJECT_HINT_RE = re.compile(
+    r"projectId\s*[:=]\s*\d+|projectCode\s*[:=]\s*[A-Za-z0-9\-]+|项目[:：]",
+    re.IGNORECASE,
+)
+ENGLISH_SENTENCE_RE = re.compile(r"[A-Za-z]{4,}[^\u4e00-\u9fff]*")
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -120,6 +125,23 @@ def should_check_message(message: str) -> bool:
     return bool(ROLE_MENTION_RE.search(text))
 
 
+def has_project_context(message: str) -> bool:
+    text = (message or "").strip()
+    if not text:
+        return False
+    return bool(PROJECT_HINT_RE.search(text))
+
+
+def has_english_drift(message: str) -> bool:
+    text = (message or "").strip()
+    if not text:
+        return False
+    # 放宽：仅当存在较长英文且无中文时才告警
+    return bool(
+        ENGLISH_SENTENCE_RE.search(text) and not re.search(r"[\u4e00-\u9fff]", text)
+    )
+
+
 def main() -> int:
     oc = read_json(OPENCLAW_CONFIG_PATH)
     contacts = read_json(CONTACTS_PATH)
@@ -193,6 +215,32 @@ def main() -> int:
                     print(f"ASSIGN_GUARD_ERROR send failed channel={channel_id}: {exc}")
                 handled.add(post_id)
                 continue
+
+            if not has_project_context(msg):
+                warn_msg = (
+                    "@bot-leader\n"
+                    "【派单一致性告警】检测到派单消息缺少项目上下文。\n"
+                    f"项目ID：{project_id}，消息ID：{post_id}\n"
+                    "请补充：projectId/projectCode/projectName/channelId。"
+                )
+                try:
+                    send_text(channel_id, warn_msg)
+                    warned += 1
+                except RuntimeError as exc:
+                    print(f"ASSIGN_GUARD_ERROR send failed channel={channel_id}: {exc}")
+
+            if has_english_drift(msg):
+                warn_msg = (
+                    "@bot-leader\n"
+                    "【语言合规告警】检测到派单消息可能使用英文。\n"
+                    f"项目ID：{project_id}，消息ID：{post_id}\n"
+                    "请按规则改为简体中文重发。"
+                )
+                try:
+                    send_text(channel_id, warn_msg)
+                    warned += 1
+                except RuntimeError as exc:
+                    print(f"ASSIGN_GUARD_ERROR send failed channel={channel_id}: {exc}")
 
             missing_codes = [c for c in codes if c not in task_codes]
             if missing_codes:

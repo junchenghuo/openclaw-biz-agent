@@ -22,9 +22,10 @@ STATE_PATH = BASE_DIR / "STATE" / "task_done_reconcile_state.json"
 TASK_CENTER_BASE = os.getenv("TASK_CENTER_BASE_URL", "http://127.0.0.1:18080")
 MM_ACCOUNT = os.getenv("MATTERMOST_ALERT_ACCOUNT", "pm")
 
-TASK_CODE_RE = re.compile(r"(?:TASK-\d{14}-\d{4}|T\d{10,})")
+TASK_CODE_RE = re.compile(r"T\d{1,}")
 PATH_RE = re.compile(r"/Users/[\w\-./\u4e00-\u9fff]+")
 DONE_TOKEN_RE = re.compile(r"\bDONE\b|\bdone\b|已完成", re.IGNORECASE)
+PROJECT_ROOT = "/Users/imac/midCreate/openclaw-workspaces/ai-team/projects/"
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -202,7 +203,37 @@ def main() -> int:
                 handled.add(post_id)
                 continue
 
+            # 强门禁：同条消息必须同时包含任务编码 + 绝对路径 + 附件
             paths = extract_paths(msg)
+            if not paths:
+                blocked_count += 1
+                try:
+                    send_text(
+                        channel_id,
+                        "@bot-leader 检测到已完成回执缺少保存绝对路径，状态不流转。请重发："
+                        "@bot-leader 已完成 <任务编码> 保存绝对路径：<file1>; <file2>（同一条消息必须含真实附件）。",
+                    )
+                except RuntimeError:
+                    pass
+                handled.add(post_id)
+                continue
+
+            if any(
+                p.startswith("/Users/") and not p.startswith(PROJECT_ROOT)
+                for p in paths
+            ):
+                blocked_count += 1
+                try:
+                    send_text(
+                        channel_id,
+                        "@bot-leader 检测到交付路径不在项目根目录，状态不流转。"
+                        f"请改为 {PROJECT_ROOT} 下路径并同条消息附真实附件。",
+                    )
+                except RuntimeError:
+                    pass
+                handled.add(post_id)
+                continue
+
             for task_code in task_codes:
                 task = task_by_code.get(task_code)
                 if not task:

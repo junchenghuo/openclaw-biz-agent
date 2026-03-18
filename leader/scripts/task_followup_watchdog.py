@@ -34,9 +34,7 @@ FOLLOWUP_STATUSES = {
     "阻塞",
     "失败",
 }
-BASELINE_ROLES_ENV = os.getenv(
-    "MATTERMOST_BASELINE_ROLES", "leader,product,arch,fe,be,qa,ops"
-)
+BASELINE_ROLES_ENV = os.getenv("MATTERMOST_BASELINE_ROLES", "leader,product,arch,qa,ai")
 OUTBOX_FAIL_STATUSES = {"失败", "已取消"}
 
 
@@ -205,17 +203,29 @@ def parse_owner_role(owner_name: str) -> str | None:
     m = re.search(r"[（(]([a-z]+)[）)]", text)
     if m:
         token = m.group(1)
-        if token in {"leader", "product", "arch", "fe", "be", "qa", "ops", "ui", "ai"}:
-            return token
+        capability_map = {
+            "leader": "leader",
+            "product": "product",
+            "ui": "product",
+            "arch": "arch",
+            "fe": "arch",
+            "be": "arch",
+            "ops": "arch",
+            "qa": "qa",
+            "ai": "ai",
+        }
+        if token in capability_map:
+            return capability_map[token]
 
     mapping = {
         "产品": "product",
+        "设计": "product",
         "架构": "arch",
-        "前端": "fe",
-        "后端": "be",
+        "前端": "arch",
+        "后端": "arch",
         "测试": "qa",
-        "运维": "ops",
-        "ui": "ui",
+        "运维": "arch",
+        "ui": "product",
         "ai": "ai",
         "leader": "leader",
     }
@@ -304,12 +314,14 @@ def format_followup_message(
     mentions: list[str],
     tasks: list[dict[str, Any]],
     skipped_mentions: list[str],
+    phase_note: str,
 ) -> str:
     head = " ".join(mentions) if mentions else "@bot-leader"
     lines = [
         f"{head}",
-        f"任务中心 5 分钟巡检 | 项目：{project_name}",
-        f"未完成任务 {len(tasks)} 条，请立即同步进展；已完成请及时更新任务状态为 COMPLETED。",
+        f"【统筹调度专家巡检】项目：{project_name}",
+        f"未完成任务：{len(tasks)} 条（以任务中心实时数据为准）",
+        "请按统一模板回执；无真实附件的“已完成”不会触发闭环。",
     ]
 
     if skipped_mentions:
@@ -320,9 +332,12 @@ def format_followup_message(
             + "；请 @admin 处理群成员权限后重试。"
         )
     lines.append("")
+    if phase_note:
+        lines.append(f"阶段门禁：{phase_note}")
+        lines.append("")
     lines.append("任务清单（催办必须带任务编码）：")
     for t in tasks[:12]:
-        code = str(t.get("taskCode") or f"TASK-{t.get('id')}").strip()
+        code = str(t.get("taskCode") or f"T{t.get('id')}").strip()
         owner = str(t.get("ownerName") or "未指派").strip()
         status = str(t.get("status") or "未知").strip()
         title = str(t.get("title") or "").replace("\n", " ").strip()
@@ -332,12 +347,47 @@ def format_followup_message(
     lines.append("")
     lines.append("回执格式（强制）：")
     lines.append("- 已接单：@bot-leader 已接单 Txxxx")
-    lines.append("- 完成：@bot-leader 已完成 Txxxx 保存绝对路径：<file1>; <file2>")
+    lines.append(
+        "- 完成：@bot-leader 已完成 Txxxx 保存绝对路径：<file1>; <file2>（同条消息附文件）"
+    )
     lines.append("- 阻塞：@bot-leader 阻塞 Txxxx 原因：... 需协助：...")
     lines.append(
         "- 必须等待 Leader 回执 outboxId/outboxStatus；无 outbox 状态不算系统已闭环。"
     )
     return "\n".join(lines)
+
+
+def build_phase_gate_note(tasks: list[dict[str, Any]]) -> str:
+    if not tasks:
+        return ""
+    running_statuses = {"RUNNING", "进行中"}
+    completed_statuses = {"COMPLETED", "CANCELLED", "已完成", "已取消"}
+
+    arch_incomplete = False
+    qa_running = False
+    for t in tasks:
+        owner = str(t.get("ownerName") or "")
+        role = parse_owner_role(owner)
+        status = str(t.get("status") or "")
+        if role == "arch" and status not in completed_statuses:
+            arch_incomplete = True
+        if role == "qa" and status in running_statuses:
+            qa_running = True
+
+    if arch_incomplete and qa_running:
+        return "检测到“全栈研发未完成但质量已进入进行中”，请先回流全栈研发完成后再继续质量执行。"
+    if arch_incomplete:
+        return "当前全栈研发尚未完成；质量与运维阶段保持待命，待技术交付后再进入执行。"
+    return ""
+
+
+def build_project_context_line(project: dict[str, Any]) -> str:
+    return (
+        f"项目上下文：projectId={project.get('id')} | "
+        f"projectCode={project.get('projectCode')} | "
+        f"projectName={project.get('projectName')} | "
+        f"channelId={project.get('mattermostChannelId')}"
+    )
 
 
 def fetch_recent_outbox_failures() -> list[dict[str, Any]]:
@@ -389,7 +439,7 @@ def format_followup_card(
 ) -> list[dict[str, Any]]:
     fields: list[dict[str, Any]] = []
     for t in tasks[:20]:
-        code = str(t.get("taskCode") or f"TASK-{t.get('id')}").strip()
+        code = str(t.get("taskCode") or f"T{t.get('id')}").strip()
         status = str(t.get("status") or "UNKNOWN").strip()
         title = str(t.get("title") or "").replace("\n", " ").strip()
         owner = str(t.get("ownerName") or "未指派").strip()
@@ -541,7 +591,11 @@ def main() -> int:
 
         next_state[key]["inviteFailures"] = failure_history
 
-        msg = format_followup_message(project_name, mentions, pending, skipped_mentions)
+        phase_note = build_phase_gate_note(pending)
+        msg = format_followup_message(
+            project_name, mentions, pending, skipped_mentions, phase_note
+        )
+        msg = msg + "\n\n" + build_project_context_line(p)
         appendix = format_outbox_blocked_appendix(project_id, outbox_failures)
         if appendix:
             msg = msg + "\n" + "\n".join(appendix)

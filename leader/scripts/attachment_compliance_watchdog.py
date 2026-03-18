@@ -23,9 +23,11 @@ TASK_CENTER_BASE = os.getenv("TASK_CENTER_BASE_URL", "http://127.0.0.1:18080")
 MM_ACCOUNT = os.getenv("MATTERMOST_ALERT_ACCOUNT", "pm")
 
 ABS_PATH_RE = re.compile(r"/Users/[\w\-./\u4e00-\u9fff]+")
-TASK_CODE_RE = re.compile(r"(?:TASK-\d{14}-\d{4}|T\d{10,})")
+TASK_CODE_RE = re.compile(r"T\d{1,}")
 DONE_TOKEN_RE = re.compile(r"\bDONE\b|\bdone\b|已完成|完成回执", re.IGNORECASE)
 DELIVERY_TOKEN_RE = re.compile(r"交付|已提交|提交产物|产出完成|已交付")
+PROJECT_ROOT = "/Users/imac/midCreate/openclaw-workspaces/ai-team/projects/"
+IMAGE_EXT_RE = re.compile(r"\.(png|jpg|jpeg|webp|gif)$", re.IGNORECASE)
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -114,6 +116,26 @@ def should_flag_message(message: str, file_ids: list[str]) -> tuple[bool, str]:
     return False, ""
 
 
+def path_scope_invalid(message: str) -> bool:
+    text = message or ""
+    paths = ABS_PATH_RE.findall(text)
+    for p in paths:
+        if p.startswith("/Users/") and not p.startswith(PROJECT_ROOT):
+            return True
+    return False
+
+
+def prototype_path_not_image(message: str) -> bool:
+    text = message or ""
+    if "原型图" not in text:
+        return False
+    paths = ABS_PATH_RE.findall(text)
+    for p in paths:
+        if "原型图" in p and not IMAGE_EXT_RE.search(p):
+            return True
+    return False
+
+
 def extract_task_codes(message: str) -> list[str]:
     return sorted(set(TASK_CODE_RE.findall(message or "")))
 
@@ -195,8 +217,13 @@ def main() -> int:
             file_ids = post.get("file_ids") or []
             should_flag, reason = should_flag_message(msg, file_ids)
             if not should_flag:
-                handled.add(post_id)
-                continue
+                if path_scope_invalid(msg):
+                    should_flag, reason = True, "路径越界（不在 projects 根目录）"
+                elif prototype_path_not_image(msg):
+                    should_flag, reason = True, "原型图路径不是图片文件"
+                else:
+                    handled.add(post_id)
+                    continue
 
             u_code, u = mm_api_json(base_url, token, "GET", f"/api/v4/users/{user_id}")
             username = u.get("username") if u_code == 200 else "unknown"
@@ -209,6 +236,8 @@ def main() -> int:
             warn_msg = (
                 f"{mention} @bot-leader\n"
                 f"【附件合规拦截】检测到{reason}。{task_hint}\n"
+                "闭环规则：仅文本路径 = 未交付；必须同条消息附真实文件。\n"
+                f"路径规则：所有绝对路径必须位于 {PROJECT_ROOT}\n"
                 "请按以下格式重发（必须含真实附件）：\n"
                 "- @bot-leader 已完成 <任务编码> 保存绝对路径：<file1>; <file2>\n"
                 "  示例：@bot-leader 已完成 T291471526719524864 保存绝对路径：/Users/.../deliverables/ui/稿件-01.png; /Users/.../deliverables/ui/规范.docx\n"

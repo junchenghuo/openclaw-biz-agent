@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Direct dispatch via Mattermost + spawn (no bus)."""
+"""Direct dispatch via Mattermost + spawn (capability mode)."""
 
 from __future__ import annotations
 
@@ -11,23 +11,13 @@ ROLE_TO_ACCOUNT = {
     "leader": "pm",
     "product": "product",
     "arch": "arch",
-    "fe": "fe",
-    "be": "be",
     "qa": "qa",
-    "ops": "ops",
-    "ui": "ui",
-    "ai": "ai",
 }
 ROLE_TO_USERNAME = {
     "leader": "bot-leader",
     "product": "bot-product",
     "arch": "bot-arch",
-    "fe": "bot-fe",
-    "be": "bot-be",
     "qa": "bot-test",
-    "ops": "bot-ops",
-    "ui": "bot-ui",
-    "ai": "bot-ai",
 }
 
 
@@ -48,6 +38,18 @@ def main() -> int:
         r = role.strip().lower()
         if r == "pm":
             r = "leader"
+        # 待岗角色映射到能力体
+        alias = {
+            "ui": "product",
+            "fe": "arch",
+            "be": "arch",
+            "ops": "qa",
+            "engineering": "arch",
+            "product-design": "product",
+            "quality": "qa",
+            "orchestrator": "leader",
+        }
+        r = alias.get(r, r)
         if r not in ROLE_TO_ACCOUNT:
             raise SystemExit(f"Invalid role: {role}")
         if r not in roles:
@@ -69,7 +71,7 @@ def main() -> int:
 
     mentions = " ".join(f"@{ROLE_TO_USERNAME[r]}" for r in roles)
     announce = (
-        f"【郑吒-Team Leader】已派单 {mentions}\n主题：{args.title}\n要求：{args.body}"
+        f"【郑吒-Orchestrator】已派单 {mentions}\n主题：{args.title}\n要求：{args.body}"
     )
     cp = run(
         [

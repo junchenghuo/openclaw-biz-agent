@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>世界时钟页面 - UI原型</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            padding: 40px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-shadow: 0 0 20px rgba(79, 172, 254, 0.5);
+        }
+        
+        .clock-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .clock-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .clock-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .clock {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            position: relative;
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .clock-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+        
+        .country-label {
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .time-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        /* 中国 - 红金配色 */
+        .clock-china { background: linear-gradient(145deg, #c41e3a, #8b0000); }
+        .clock-china::before {
+            content: '';
+            position: absolute;
+            width: 90%;
+            height: 90%;
+            top: 5%;
+            left: 5%;
+            border-radius: 50%;
+            border: 2px solid #ffd700;
+        }
+        
+        /* 美国 - 蓝红配色 */
+        .clock-usa { background: linear-gradient(145deg, #1e3a8a, #1e40af); }
+        .clock-usa::before {
+            content: '★';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 20px;
+        }
+        
+        /* 英国 - 皇室红 */
+        .clock-uk { background: linear-gradient(145deg, #c8102e, #012169); }
+        
+        /* 日本 - 樱花粉 */
+        .clock-japan { background: linear-gradient(145deg, #ff69b4, #ffc0cb); }
+        
+        /* 法国 - 优雅蓝 */
+        .clock-france { background: linear-gradient(145deg, #0055a4, #002395); }
+        
+        /* 澳大利亚 - 金合欢黄 */
+        .clock-australia { background: linear-gradient(145deg, #ffdd00, #ff8c00); }
+        
+        /* 德国 - 黑金 */
+        .clock-germany { background: linear-gradient(145deg, #000000, #333); }
+        .clock-germany::before {
+            content: '';
+            position: absolute;
+            width: 90%;
+            height: 90%;
+            top: 5%;
+            left: 5%;
+            border-radius: 50%;
+            border: 3px solid #ffd700;
+        }
+        
+        /* 韩国 - 太极红蓝 */
+        .clock-korea { background: linear-gradient(145deg, #fff, #fff); }
+        
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            background: #fff;
+            border-radius: 2px;
+        }
+        
+        .hour-hand {
+            width: 4px;
+            height: 40px;
+            margin-left: -2px;
+        }
+        
+        .minute-hand {
+            width: 2px;
+            height: 55px;
+            margin-left: -1px;
+        }
+        
+        .second-hand {
+            width: 1px;
+            height: 60px;
+            margin-left: -0.5px;
+            background: #ff0000;
+        }
+        
+        .center-dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ffd700;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        
+        @media (max-width: 900px) {
+            .clock-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 500px) {
+            .clock-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🌍 世界时钟页面</h1>
+    <div class="clock-grid">
+        <div class="clock-card">
+            <div class="clock clock-china">
+                <div class="clock-face">
+                    <div class="hand hour-hand" style="transform: translateX(-50%) rotate(30deg);"></div>
+                    <div class="hand minute-hand" style="transform: translateX(-50%) rotate(180deg);"></div>
+                    <div class="hand second-hand" style="transform: translateX(-50%) rotate(90deg);"></div>
+                    <div class="center-dot"></div>
+                </div>
+            </div>
+            <div class="country-label">🇨🇳 中国</div>
+            <div class="time-label">UTC+8</div>
+        </div>
+        
+        <div class="clock-card">
+            <div class="clock clock-usa">
+                <div class="clock-face">
+                    <div class="hand hour-hand" style="transform: translateX(-50%) rotate(-60deg);"></div>
+                    <div class="hand minute-hand" style="transform: translateX(-50%) rotate(90deg);"></div>
+                    <div class="hand second-hand" style="transform: translateX(-50%) rotate(180deg);"></div>
+                    <div class="center-dot"></div>
+                </div>
+            </div>
+            <div class="country-label">🇺🇸 美国</div>
+            <div class="time-label">UTC-5</div>
+        </div>
+        
+        <div class="clock-card">
+            <div class="clock clock-uk">
+                <div class="clock-face">
+                    <div class="hand hour-hand" style="transform: translateX(-50%) rotate(0deg);"></div>
+                    <div class="hand minute-hand" style="transform: translateX(-50%) rotate(0deg);"></div>
+                    <div class="hand second-hand" style="transform: translateX(-50%) rotate(270deg);"></div>
+                    <div class="center-dot"></div>
+                </div>
+            </div>
+            <div class="country-label">🇬🇧 英国</div>
+            <div class="time-label">UTC+0</div>
+        </div>
+        
+        <div class="clock-card">
+            <div class="clock clock-japan">
+                <div class="clock-face">
+                    <div class="hand hour-hand" style="transform: translateX(-50%) rotate(60deg);"></div>
+                    <div class="hand minute-hand" style="transform: translateX(-50%) rotate(270deg);"></div>
+                    <div class="hand second-hand" style="transform: translateX(-50%) rotate(0deg);"></div>
+                    <div class="center-dot"></div>
+                </div>
+            </div>
+            <div class="country-label">🇯🇵 日本</div>
+            <div class="time-label">UTC+9</div>
+        </div>
+        
+        <div class="clock-card">
+            <div class="clock clock-france">
+                <div class="clock-face">
+                    <div class="hand hour-hand" style="transform: translateX(-50%) rotate(15deg);"></div>
+                    <div class="hand minute-hand" style="transform: translateX(-50%) rotate(120deg);"></div>
+                    <div class="hand second-hand" style="transform: translateX(-50%) rotate(45deg);"></div>
+                    <div class="center-dot"></div>
+                </div>
+            </div>
+            <div class="country-label">🇫🇷 法国</div>
+            <div class="time-label">UTC+1</div>
+        </div>
+        
+        <div class="clock-card">
+            <div class="clock clock-australia">
+                <div class="clock-face">
+                    <div class="hand hour-hand" style="transform: translateX(-50%) rotate(90deg);"></div>
+                    <div class="hand minute-hand" style="transform: translateX(-50%) rotate(200deg);"></div>
+                    <div class="hand second-hand" style="transform: translateX(-50%) rotate(120deg);"></div>
+                    <div class="center-dot"></div>
+                </div>
+            </div>
+            <div class="country-label">🇦🇺 澳大利亚</div>
+            <div class="time-label">UTC+11</div>
+        </div>
+        
+        <div class="clock-card">
+            <div class="clock clock-germany">
+                <div class="clock-face">
+                    <div class="hand hour-hand" style="transform: translateX(-50%) rotate(20deg);"></div>
+                    <div class="hand minute-hand" style="transform: translateX(-50%) rotate(150deg);"></div>
+                    <div class="hand second-hand" style="transform: translateX(-50%) rotate(200deg);"></div>
+                    <div class="center-dot"></div>
+                </div>
+            </div>
+            <div class="country-label">🇩🇪 德国</div>
+            <div class="time-label">UTC+1</div>
+        </div>
+        
+        <div class="clock-card">
+            <div class="clock clock-korea">
+                <div class="clock-face">
+                    <div class="hand hour-hand" style="transform: translateX(-50%) rotate(45deg);"></div>
+                    <div class="hand minute-hand" style="transform: translateX(-50%) rotate(270deg);"></div>
+                    <div class="hand second-hand" style="transform: translateX(-50%) rotate(30deg);"></div>
+                    <div class="center-dot"></div>
+                </div>
+            </div>
+            <div class="country-label">🇰🇷 韩国</div>
+            <div class="time-label">UTC+9</div>
+        </div>
+    </div>
+</body>
+</html>
